@@ -20,6 +20,7 @@ web-build/
 expo-env.d.ts
 # @end expo-cli
 
+firebase-credentials.json
 google-services.json
 /android
 /ios
