@@ -1,21 +1,20 @@
 import { PropsWithChildren } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Href, Link } from 'expo-router';
 
 export function MenuOption({
   children,
-  onPress,
+  route,
   icon,
-}: PropsWithChildren & { onPress: () => void; icon: any }) {
+}: PropsWithChildren & { route: Href; icon: any }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => onPress()}>
-      <Ionicons
-        name={icon}
-        size={50}
-        color='#333333'
-      />
-      <Text style={styles.label}>{children}</Text>
-    </TouchableOpacity>
+    <Link href={route} asChild>
+      <TouchableOpacity style={styles.container}>
+        <Ionicons name={icon} size={50} color='#333333' />
+        <Text style={styles.label}>{children}</Text>
+      </TouchableOpacity>
+    </Link>
   );
 }
 
@@ -23,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     height: 160,
     width: 160,
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#eee',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 16,
@@ -32,6 +31,6 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: '400',
     fontSize: 16,
-    color: '#333333'
-  }
+    color: '#333',
+  },
 });

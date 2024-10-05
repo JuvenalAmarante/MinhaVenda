@@ -9,9 +9,13 @@ export default function HomePage() {
   let sub = () => {};
 
   useEffect(() => {
-    loadTotal();
+      console.warn('montando')
+      loadTotal();
 
-    return sub();
+    return () => {
+      console.warn('desmontando')
+      sub();
+    }
   }, []);
 
   async function loadTotal() {
@@ -28,13 +32,13 @@ export default function HomePage() {
       <Total value={total} />
 
       <View style={styles.optionsContainer}>
-        <MenuOption onPress={() => {}} icon='time'>
+        <MenuOption route="/history" icon='time'>
           Minhas vendas
         </MenuOption>
 
-        <MenuOption onPress={() => {}} icon='add-circle'>
+        {/* <MenuOption route="" icon='add-circle'>
           Nova venda
-        </MenuOption>
+        </MenuOption> */}
       </View>
     </SafeAreaView>
   );
