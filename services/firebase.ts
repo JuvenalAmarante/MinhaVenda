@@ -12,16 +12,8 @@ import {
   doc,
   orderBy,
 } from 'firebase/firestore';
+import { Category } from '@/types/Category';
 
-export async function add(collectionName: string, data: any) {
-  try {
-    const docRef = await addDoc(collection(db, collectionName), data);
-
-    return docRef.id;
-  } catch {
-    return false;
-  }
-}
 export async function getTotalSalesDay(func: any) {
   const dataInicial = new Date();
   const dataFinal = new Date();
@@ -61,11 +53,15 @@ export async function findAllSales(
       );
     }
 
-    const q = query(collection(db, 'Vendas'), orderBy('data', 'desc'), ...conditions);
+    const q = query(
+      collection(db, 'Vendas'),
+      orderBy('data', 'desc'),
+      ...conditions
+    );
 
     const querySnapshot = await getDocs(q);
 
-    const list: any[] = [];
+    const list: Sale[] = [];
 
     for await (let document of querySnapshot.docs) {
       const data = document.data();
@@ -74,14 +70,15 @@ export async function findAllSales(
         doc(db, 'Categorias', data.categoria_id)
       );
 
-      const category = {
+      const category: Category = {
         id: categorySnapshot.id,
-        ...categorySnapshot.data(),
+        descricao: categorySnapshot.data()?.descricao,
       };
-      
+
       list.push({
         id: document.id,
-        ...data,
+        valor: data.valor,
+        categoria_id: data.categoria_id,
         data: data.data.toDate(),
         categoria: category,
       });
@@ -90,5 +87,42 @@ export async function findAllSales(
     return list;
   } catch {
     return [];
+  }
+}
+
+export async function findAllCategories() {
+  try {
+    const q = query(collection(db, 'Categorias'), orderBy('descricao', 'asc'));
+
+    const querySnapshot = await getDocs(q);
+
+    const list: Category[] = [];
+
+    for await (let document of querySnapshot.docs) {
+      const data = document.data();
+
+      list.push({
+        id: document.id,
+        descricao: data.descricao,
+      });
+    }
+
+    return list;
+  } catch {
+    return [];
+  }
+}
+
+export async function createSale(value: number, category_id: string) {
+  try {
+    const docRef = await addDoc(collection(db, 'Vendas'), {
+      valor: value,
+      categoria_id: category_id,
+      data: new Date(),
+    });
+
+    return docRef.id;
+  } catch {
+    return '';
   }
 }

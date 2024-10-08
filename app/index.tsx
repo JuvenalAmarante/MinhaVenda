@@ -6,20 +6,24 @@ import { SafeAreaView, StyleSheet, View, Image } from 'react-native';
 
 export default function HomePage() {
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
   let sub = () => {};
 
   useEffect(() => {
-      console.warn('montando')
-      loadTotal();
+    setLoading(true);
+    loadTotal();
 
     return () => {
-      console.warn('desmontando')
       sub();
-    }
+    };
   }, []);
 
   async function loadTotal() {
-    sub = await getTotalSalesDay((val: number) => setTotal(val));
+    sub = await getTotalSalesDay((val: number) => {
+      setLoading(true);
+      setTotal(val);
+      setLoading(false);
+    });
   }
 
   return (
@@ -29,10 +33,10 @@ export default function HomePage() {
         style={styles.logoContainer}
       />
 
-      <Total value={total} />
+      <Total value={total} loading={loading} />
 
       <View style={styles.optionsContainer}>
-        <MenuOption route="/history" icon='time'>
+        <MenuOption route='/history' icon='time'>
           Minhas vendas
         </MenuOption>
 

@@ -1,51 +1,64 @@
+import { AddSale } from '@/components/AddSale';
+import { FabButton } from '@/components/FabButton';
 import { ListItem } from '@/components/ListItem';
 import { findAllSales } from '@/services/firebase';
 import { Sale } from '@/types/Sale';
 import { useEffect, useState } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  Image,
-  FlatList,
+  StyleSheet, FlatList,
   ActivityIndicator,
-  View,
+  View
 } from 'react-native';
 
 export default function HistoryPage() {
   const [list, setList] = useState([] as Sale[]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    loadTotal();
+    loadSales();
   }, []);
 
-  async function loadTotal() {
-    setLoading(true);
+  async function loadSales() {
+    setRefresh(true);
     const list: Sale[] = await findAllSales();
-    console.log('🚀 ~ loadTotal ~ list:', list[0].data);
 
     setList(list);
+    setRefresh(false);
     setLoading(false);
   }
 
   return (
-    <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size={50} color='#00017C' />
-      ) : (
-        <FlatList
-          data={list}
-          renderItem={({ item }) => (
-            <ListItem
-              title={item.categoria.descricao}
-              date={item.data}
-              value={item.valor}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      )}
-    </View>
+    <>
+      <View style={styles.container}>
+        {loading ? (
+          <ActivityIndicator size={50} color='#00017C' />
+        ) : (
+          <FlatList
+            data={list}
+            onRefresh={() => loadSales()}
+            refreshing={refresh}
+            renderItem={({ item }) => (
+              <ListItem
+                title={item.categoria.descricao}
+                date={item.data}
+                value={item.valor}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        )}
+
+        <FabButton onPress={() => setModalVisible(true)} />
+      </View>
+
+      <AddSale
+        visible={modalVisible}
+        setVisible={(visible) => setModalVisible(visible)}
+        onClose={() => loadSales()}
+      />
+    </>
   );
 }
 

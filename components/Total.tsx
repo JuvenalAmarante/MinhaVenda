@@ -1,16 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export function Total({ value }: { value: number }) {
+export function Total({ value, loading }: { value: number; loading: boolean }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Total do dia</Text>
 
       <Text style={styles.value}>
-        <Text style={styles.symbol}>R$</Text>
-        {value.toLocaleString('pt-BR', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
+        {loading ? (
+          <>Carregando...</>
+        ) : (
+          <>
+            <Text style={styles.symbol}>R$</Text>
+            {value.toLocaleString('pt-BR', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </>
+        )}
       </Text>
     </View>
   );
