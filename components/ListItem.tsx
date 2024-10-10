@@ -1,5 +1,11 @@
 import { PropsWithChildren } from 'react';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Href, Link, LinkProps } from 'expo-router';
 
@@ -7,13 +13,22 @@ export function ListItem({
   title,
   date,
   value,
+  onLongPress,
 }: {
   title: string;
   date: Date;
   value: number;
+  onLongPress?: () => void;
 }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onLongPress={() => {
+        if (onLongPress) {
+          onLongPress();
+        }
+      }}
+    >
       <View style={styles.containerData}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.date}>Data: {date.toLocaleString('pt-BR')}</Text>
@@ -28,7 +43,7 @@ export function ListItem({
           })}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -46,13 +61,13 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   containerData: {
-    flex: 7/10,
+    flex: 7 / 10,
     paddingLeft: 8,
     paddingVertical: 5,
     gap: 16,
   },
   containerValue: {
-    flex: 3/10,
+    flex: 3 / 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderTopRightRadius: 10,

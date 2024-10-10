@@ -11,6 +11,7 @@ import {
   getDoc,
   doc,
   orderBy,
+  deleteDoc,
 } from 'firebase/firestore';
 import { Category } from '@/types/Category';
 
@@ -124,5 +125,15 @@ export async function createSale(value: number, category_id: string) {
     return docRef.id;
   } catch {
     return '';
+  }
+}
+
+export async function removeSale(id: string) {
+  try {
+    await deleteDoc(doc(db, 'Vendas', id));
+
+    return true;
+  } catch {
+    return false;
   }
 }
