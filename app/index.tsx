@@ -2,7 +2,8 @@ import { MenuOption } from '@/components/MenuOption';
 import { Total } from '@/components/Total';
 import { getTotalSalesDay } from '@/services/firebase';
 import { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Image, StatusBar } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function HomePage() {
   const [total, setTotal] = useState(0);
@@ -28,7 +29,7 @@ export default function HomePage() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="#00017C" translucent barStyle="light-content" />
+      <StatusBar backgroundColor="#00017C" translucent style="light" />
       
       <View style={styles.headerContainer}>
       <Image

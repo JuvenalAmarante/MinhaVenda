@@ -10,9 +10,9 @@ import {
   FlatList,
   ActivityIndicator,
   View,
-  StatusBar,
   ToastAndroid,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 export default function HistoryPage() {
   const [itemSelected, setItemSelected] = useState<Sale>();
@@ -54,6 +54,7 @@ export default function HistoryPage() {
 
       setLoadingRemove(false);
       setConfirmationModalVisible(false);
+      
       await loadSales();
     }
   }
@@ -63,7 +64,7 @@ export default function HistoryPage() {
       <StatusBar
         backgroundColor='#00017C'
         translucent
-        barStyle='light-content'
+        style="light"
       />
       <View style={styles.container}>
         {loading ? (
