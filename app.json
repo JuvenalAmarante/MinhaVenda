@@ -40,6 +40,12 @@
         "projectId": "43f16a23-bdfb-45d7-b56a-49829d136765"
       }
     },
-    "owner": "acaijaborandi"
+    "owner": "acaijaborandi",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/43f16a23-bdfb-45d7-b56a-49829d136765"
+    }
   }
 }
