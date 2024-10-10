@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.96,
     marginHorizontal: Dimensions.get('window').width * 0.02,
     flexDirection: 'row',
-    backgroundColor: '#eee',
+    backgroundColor: 'white',
     borderLeftColor: '#00017C',
     borderLeftWidth: 12,
     justifyContent: 'center',

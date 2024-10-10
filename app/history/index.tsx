@@ -4,11 +4,7 @@ import { ListItem } from '@/components/ListItem';
 import { findAllSales } from '@/services/firebase';
 import { Sale } from '@/types/Sale';
 import { useEffect, useState } from 'react';
-import {
-  StyleSheet, FlatList,
-  ActivityIndicator,
-  View
-} from 'react-native';
+import { StyleSheet, FlatList, ActivityIndicator, View, StatusBar } from 'react-native';
 
 export default function HistoryPage() {
   const [list, setList] = useState([] as Sale[]);
@@ -26,11 +22,13 @@ export default function HistoryPage() {
 
     setList(list);
     setRefresh(false);
-    setLoading(false);
+
+    if (loading) setLoading(false);
   }
 
   return (
     <>
+      <StatusBar backgroundColor="#00017C" translucent barStyle="light-content" />
       <View style={styles.container}>
         {loading ? (
           <ActivityIndicator size={50} color='#00017C' />
@@ -65,7 +63,7 @@ export default function HistoryPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D3D3D3',
+    backgroundColor: '#e3e3e3',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 16,

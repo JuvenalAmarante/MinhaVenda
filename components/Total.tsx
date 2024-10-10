@@ -26,25 +26,21 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 150,
     width: '80%',
-    backgroundColor: '#EEEEEE',
+    backgroundColor: '#EEEEEE00',
     borderRadius: 10,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
+    paddingVertical: 20,
   },
   title: {
-    top: 2,
-    left: 4,
     fontWeight: '500',
     fontSize: 15,
-    position: 'absolute',
+    color: '#ccc'
   },
   symbol: {
     fontWeight: 'bold',
   },
   value: {
-    color: 'green',
+    color: '#eee',
     fontWeight: '500',
     fontSize: 40,
   },

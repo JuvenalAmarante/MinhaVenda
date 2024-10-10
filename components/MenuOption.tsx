@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 16,
     borderRadius: 10,
+    elevation: 3
   },
   label: {
     fontWeight: '400',

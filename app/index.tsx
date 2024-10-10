@@ -2,7 +2,7 @@ import { MenuOption } from '@/components/MenuOption';
 import { Total } from '@/components/Total';
 import { getTotalSalesDay } from '@/services/firebase';
 import { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Image, StatusBar } from 'react-native';
 
 export default function HomePage() {
   const [total, setTotal] = useState(0);
@@ -28,12 +28,16 @@ export default function HomePage() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor="#00017C" translucent barStyle="light-content" />
+      
+      <View style={styles.headerContainer}>
       <Image
-        source={require('@/assets/images/logo-home.png')}
-        style={styles.logoContainer}
+        source={require('@/assets/images/logo_home.png')}
+        style={styles.logo}
       />
 
       <Total value={total} loading={loading} />
+      </View>
 
       <View style={styles.optionsContainer}>
         <MenuOption route='/history' icon='time'>
@@ -51,16 +55,22 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D3D3D3',
+    backgroundColor: '#e3e3e3',
     alignItems: 'center',
-    paddingVertical: 32,
-    paddingHorizontal: 16,
+    paddingBottom: 32,
     gap: 16,
   },
-  logoContainer: {
+  headerContainer:{
+    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#00017C',
+    borderBottomEndRadius: 16,
+    borderBottomStartRadius: 16,
+    paddingBottom: 16,
+  },
+  logo: {
     height: 160,
     width: 160,
-    backgroundColor: 'red',
   },
   optionsContainer: {
     flex: 1,

@@ -7,7 +7,7 @@ export function Header({ title }: { title: string }) {
     <View style={styles.container}>
       <View style={styles.containerLeftButton}>
         <Link href='/'>
-          <Ionicons name='arrow-back' size={30} />
+          <Ionicons name='arrow-back' size={30} color="#eee"/>
         </Link>
       </View>
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: Dimensions.get('window').width,
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: '#00017C',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 16,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: '600',
     fontSize: 22,
-    color: '#333',
+    color: "#eee",
     textAlign: 'center',
   },
 });
